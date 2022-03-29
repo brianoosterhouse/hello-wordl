@@ -3,7 +3,7 @@ import { Row, RowState } from "./Row";
 import dictionary from "./dictionary.json";
 import { Clue, clue, describeClue, violation } from "./clue";
 import { Keyboard } from "./Keyboard";
-import targetList from "./targets.json";
+import targetObj from "./targets.json";
 import {
   describeSeed,
   dictionarySet,
@@ -31,7 +31,8 @@ interface GameProps {
   keyboardLayout: string;
 }
 
-const targets = targetList.slice(0, targetList.indexOf("test") + 1); // Words no rarer than this one
+const targetObjDefinitions = Object.values(targetObj);
+const targets = Object.keys(targetObj);
 const minLength = 3;
 const defaultLength = 5;
 const maxLength = 11;
@@ -193,10 +194,19 @@ function Game(props: GameProps) {
       setGuesses((guesses) => guesses.concat([currentGuess]));
       setCurrentGuess((guess) => "");
 
-      const gameOver = (verbed: string) =>
-        `You ${verbed}! The answer was ${target.toUpperCase()}. (Enter to ${
+      const gameOver = (verbed: string) => {
+        let definition;
+        let index = 0;
+        for (let answer in targetObj) {
+          index++;
+          if (answer === target) {
+            definition = targetObjDefinitions[index];
+          }
+        }
+        return `You ${verbed}! The answer was ${target.toUpperCase()}. (Enter to ${
           challenge ? "play a random game" : "play again"
-        })`;
+        }) ${definition}`;
+      }
 
       if (currentGuess === target) {
         setHint(gameOver("won"));
