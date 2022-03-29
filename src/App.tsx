@@ -78,9 +78,9 @@ function App() {
             fontStyle: difficulty > 1 ? "italic" : "inherit",
           }}
         >
-          hell
+          <img src="/logo.png"></img>
         </span>
-        o wordl
+        dle
       </h1>
       <div className="top-right">
         {page !== "game" ? (
