@@ -31,8 +31,8 @@ interface GameProps {
   keyboardLayout: string;
 }
 
-const targets = targetList.slice(0, targetList.indexOf("murky") + 1); // Words no rarer than this one
-const minLength = 4;
+const targets = targetList.slice(0, targetList.indexOf("test") + 1); // Words no rarer than this one
+const minLength = 3;
 const defaultLength = 5;
 const maxLength = 11;
 const limitLength = (n: number) =>
