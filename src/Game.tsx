@@ -3,7 +3,7 @@ import { Row, RowState } from "./Row";
 import dictionary from "./dictionary.json";
 import { Clue, clue, describeClue, violation } from "./clue";
 import { Keyboard } from "./Keyboard";
-import targetObj from "./targets.json";
+import targets from "./targets.json";
 import {
   describeSeed,
   dictionarySet,
@@ -31,8 +31,6 @@ interface GameProps {
   keyboardLayout: string;
 }
 
-const targetObjDefinitions = Object.values(targetObj);
-const targets = Object.keys(targetObj);
 const minLength = 3;
 const defaultLength = 5;
 const maxLength = 11;
@@ -40,7 +38,7 @@ const limitLength = (n: number) =>
   n >= minLength && n <= maxLength ? n : defaultLength;
 
 function randomTarget(wordLength: number): string {
-  const eligible = targets.filter((word) => word.length === wordLength);
+  const eligible = Object.keys(targets).filter((word) => word.length === wordLength);
   let candidate: string;
   do {
     candidate = pick(eligible);
@@ -98,6 +96,7 @@ function Game(props: GameProps) {
     for (let i = 1; i < gameNumber; i++) randomTarget(wordLength);
     return challenge || randomTarget(wordLength);
   });
+  let targetDefinition = '';
   const [hint, setHint] = useState<string>(
     challengeError
       ? `Invalid challenge string, playing random game.`
@@ -195,17 +194,20 @@ function Game(props: GameProps) {
       setCurrentGuess((guess) => "");
 
       const gameOver = (verbed: string) => {
-        let definition;
         let index = 0;
-        for (let answer in targetObj) {
-          index++;
-          if (answer === target) {
-            definition = targetObjDefinitions[index];
+        Object.values(targets).forEach((definition, i) => {
+          if (Object.keys(targets)[i] === target) {
+            targetDefinition = definition;
           }
+        });
+        for (let answer in Object.keys(targets)) {
+          index++;
         }
         return `You ${verbed}! The answer was ${target.toUpperCase()}. (Enter to ${
           challenge ? "play a random game" : "play again"
-        }) ${definition}`;
+        })
+
+        ${targetDefinition}`;
       }
 
       if (currentGuess === target) {
@@ -299,7 +301,9 @@ function Game(props: GameProps) {
           disabled={gameState !== GameState.Playing || guesses.length === 0}
           onClick={() => {
             setHint(
-              `The answer was ${target.toUpperCase()}. (Enter to play again)`
+              `The answer was ${target.toUpperCase()}. (Enter to play again)
+
+              ${targetDefinition}`
             );
             setGameState(GameState.Lost);
             (document.activeElement as HTMLElement)?.blur();
