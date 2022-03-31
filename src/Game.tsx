@@ -130,32 +130,6 @@ function Game(props: GameProps) {
     setGameNumber((x) => x + 1);
   };
 
-  async function share(copiedHint: string, text?: string) {
-    const url = seed
-      ? window.location.origin + window.location.pathname + currentSeedParams()
-      : getChallengeUrl(target);
-    const body = url + (text ? "\n\n" + text : "");
-    if (
-      /android|iphone|ipad|ipod|webos/i.test(navigator.userAgent) &&
-      !/firefox/i.test(navigator.userAgent)
-    ) {
-      try {
-        await navigator.share({ text: body });
-        return;
-      } catch (e) {
-        console.warn("navigator.share failed:", e);
-      }
-    }
-    try {
-      await navigator.clipboard.writeText(body);
-      setHint(copiedHint);
-      return;
-    } catch (e) {
-      console.warn("navigator.clipboard.writeText failed:", e);
-    }
-    setHint(url);
-  }
-
   const onKey = (key: string) => {
     if (gameState !== GameState.Playing) {
       if (key === "Enter") {
@@ -341,38 +315,6 @@ function Game(props: GameProps) {
           ? `${describeSeed(seed)} — length ${wordLength}, game ${gameNumber}`
           : "playing a random game"}
       </div>
-      <p>
-        <button
-          onClick={() => {
-            share("Link copied to clipboard!");
-          }}
-        >
-          Share a link to this game
-        </button>{" "}
-        {gameState !== GameState.Playing && (
-          <button
-            onClick={() => {
-              const emoji = props.colorBlind
-                ? ["⬛", "🟦", "🟧"]
-                : ["⬛", "🟨", "🟩"];
-              const score = gameState === GameState.Lost ? "X" : guesses.length;
-              share(
-                "Result copied to clipboard!",
-                `${gameName} ${score}/${props.maxGuesses}\n` +
-                  guesses
-                    .map((guess) =>
-                      clue(guess, target)
-                        .map((c) => emoji[c.clue ?? 0])
-                        .join("")
-                    )
-                    .join("\n")
-              );
-            }}
-          >
-            Share emoji results
-          </button>
-        )}
-      </p>
     </div>
   );
 }
