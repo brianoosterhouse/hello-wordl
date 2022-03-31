@@ -181,7 +181,7 @@ function Game(props: GameProps) {
           challenge ? "play a random game" : "play again"
         })
 
-        ${targetDefinition}`;
+        ${target.toUpperCase()}: ${targetDefinition}`;
       }
 
       if (currentGuess === target) {
