@@ -274,11 +274,22 @@ function Game(props: GameProps) {
           style={{ flex: "0 0 auto" }}
           disabled={gameState !== GameState.Playing || guesses.length === 0}
           onClick={() => {
-            setHint(
-              `The answer was ${target.toUpperCase()}. (Enter to play again)
+            Object.values(targets).forEach((definition, i) => {
+              if (Object.keys(targets)[i] === target) {
+                targetDefinition = definition;
+              }
+            });
+            if (targetDefinition === '') {
+              setHint(
+                `The answer was ${target.toUpperCase()}. (Enter to play again)`
+              );
+            } else {
+              setHint(
+                `The answer was ${target.toUpperCase()}. (Enter to play again)
 
-              ${targetDefinition}`
-            );
+                ${target.toUpperCase()}: ${targetDefinition}`
+              );
+            }
             setGameState(GameState.Lost);
             (document.activeElement as HTMLElement)?.blur();
           }}
