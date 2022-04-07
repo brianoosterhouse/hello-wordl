@@ -16,6 +16,7 @@ import {
   urlParam,
 } from "./util";
 import { decode, encode } from "./base64";
+const parseHtml = require('html-react-parser');
 
 enum GameState {
   Playing,
@@ -177,11 +178,13 @@ function Game(props: GameProps) {
         for (let answer in Object.keys(targets)) {
           index++;
         }
-        return `You ${verbed}! The answer was ${target.toUpperCase()}. (Enter to ${
-          challenge ? "play a random game" : "play again"
-        })
+        return parseHtml(
+          `You ${verbed}! The answer was ${target.toUpperCase()}. (Enter to ${
+            challenge ? "play a random game" : "play again"
+          })
 
-        ${target.toUpperCase()}: ${targetDefinition}`;
+          ${target.toUpperCase()}: ${targetDefinition}`
+        );
       }
 
       if (currentGuess === target) {
@@ -285,9 +288,11 @@ function Game(props: GameProps) {
               );
             } else {
               setHint(
-                `The answer was ${target.toUpperCase()}. (Enter to play again)
+                parseHtml(
+                  `The answer was ${target.toUpperCase()}. (Enter to play again)
 
-                ${target.toUpperCase()}: ${targetDefinition}`
+                  ${target.toUpperCase()}: ${targetDefinition}`
+                )
               );
             }
             setGameState(GameState.Lost);
