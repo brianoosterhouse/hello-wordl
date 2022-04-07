@@ -1,10 +1,20 @@
+:root {
+  --text-color-primary: #F73333;
+  --text-color-secondary: #404040;
+  --background-dark: #EEEEEE;
+  --border: rgba(128, 128, 128, 0.8);
+  --answer-correct: rgb(87, 172, 120);
+  --answer-elsewhere: rgb(233, 198, 1);
+  --answer-absent: rgb(162, 162, 162);
+}
+
 * {
   box-sizing: border-box;
 }
 
 body {
   text-align: center;
-  background-color: #eeeeee;
+  background-color: var(--background-dark);
 }
 
 .Row {
@@ -15,7 +25,7 @@ body {
 
 .Row-letter {
   margin: 2px;
-  border: 2px solid rgba(128, 128, 128, 0.8);
+  border: 2px solid var(--border);
   flex: 1;
   max-width: 40px;
   height: 40px;
@@ -28,7 +38,7 @@ body {
 }
 .Row-letter-color {
   margin: 2px;
-  border: 2px solid rgba(128, 128, 128, 0.8);
+  border: 2px solid var(--border);
   flex: 1;
   max-width: 40px;
   height: 40px;
@@ -97,7 +107,7 @@ table.Game-rows > tbody {
 
 .Game-keyboard-button {
   margin: 2px;
-  background-color: #cdcdcd;
+  background-color: #CDCDCD;
   padding: 2px;
   text-transform: capitalize;
   border-radius: 4px;
@@ -124,39 +134,35 @@ table.Game-rows > tbody {
 
 .letter-correct {
   border: 2px solid rgba(0, 0, 0, 0.3);
-  background-color: rgb(87, 172, 120);
+  background-color: var(--answer-correct);
   color: white !important;
 }
 
 .letter-elsewhere {
   border: 2px dotted rgba(0, 0, 0, 0.3);
-  background-color: #e9c601;
+  background-color: var(--answer-elsewhere);
   color: white !important;
 }
 
 .letter-absent {
   border: 2px solid transparent;
-  background-color: rgb(162, 162, 162);
+  background-color: var(--answer-absent);
   color: white !important;
 }
 
 body.dark {
-  background-color: #404040;
-  color: #e0e0e0;
+  background-color: var(--text-color-secondary);
+  color: #E0E0E0;
   color-scheme: dark;
 }
 
 body.dark .Game-keyboard-button {
-  color: #404040;
+  color: var(--text-color-secondary);
 }
 
 a,
 a:visited {
-  color: #8080ff;
-}
-
-a:active {
-  color: #cc77ff;
+  color: var(--text-color-primary);
 }
 
 .Game-options {
@@ -186,18 +192,18 @@ a:active {
 }
 
 .App-about b {
-  background-color: #888;
+  background-color: #888888;
   color: white;
   padding: 1px 3px;
   border-radius: 2px;
 }
 
 .App-about b.green-bg {
-  background-color: rgb(87, 172, 120);
+  background-color: var(--answer-correct);
 }
 
 .App-about b.yellow-bg {
-  background-color: #e9c601;
+  background-color: var(--answer-elsewhere);
 }
 
 .Game-seed-info {
