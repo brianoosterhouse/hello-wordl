@@ -82,7 +82,7 @@ export function About() {
         SOFTWARE.
         <br />
         <br />
-        <a href="https://github.com/lynn/hello-wordl" target="_blank" rel="noopener">Browse the original source code here.</a>
+        <a href="https://github.com/lynn/hello-wordl" target="_blank" rel="noopener">Browse the original source code on GitHub</a>
       </p>
     </div>
   );

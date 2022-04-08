@@ -83,6 +83,8 @@ function App() {
               position: "relative",
               top: "20px",
             }}
+            alt={"Vibration Research logo"}
+            aria-label={"VR"}
           ></img>
         </span>
         dle

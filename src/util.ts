@@ -11,6 +11,8 @@ export const maxGuesses = 6;
 
 export const dictionarySet: Set<string> = new Set(dictionary);
 
+export const parseHtml = require('html-react-parser');
+
 function mulberry32(a: number) {
   return function () {
     var t = (a += 0x6d2b79f5);

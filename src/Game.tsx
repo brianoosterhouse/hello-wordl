@@ -9,6 +9,7 @@ import {
   dictionarySet,
   Difficulty,
   gameName,
+  parseHtml,
   pick,
   resetRng,
   seed,
@@ -16,7 +17,6 @@ import {
   urlParam,
 } from "./util";
 import { decode, encode } from "./base64";
-const parseHtml = require('html-react-parser');
 
 enum GameState {
   Playing,

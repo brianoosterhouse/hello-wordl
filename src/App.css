@@ -1,5 +1,8 @@
+@import url("https://fonts.googleapis.com/css?family=Montserrat:300,400,600");
+
 :root {
-  --text-color-primary: #F73333;
+  --text-color-primary--light: #F73333;
+  --text-color-primary: #F70000;
   --text-color-secondary: #404040;
   --background-dark: #EEEEEE;
   --border: rgba(128, 128, 128, 0.8);
@@ -10,11 +13,20 @@
 
 * {
   box-sizing: border-box;
+  font-family: "Montserrat", serif;
 }
 
 body {
   text-align: center;
   background-color: var(--background-dark);
+}
+
+input,button {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  margin: 0;
+  padding: 0;
 }
 
 .Row {
@@ -178,6 +190,31 @@ a:visited {
 
 .Game-options button {
   min-width: 4rem;
+  background-color: white;
+  border: none;
+  color: var(--text-color-secondary);
+  display: inline-block;
+  cursor: pointer;
+  font-family: "Montserrat",serif;
+  font-size: 15px;
+  font-weight: 400;
+  padding: 10px 30px;
+  line-height: 1.5em;
+  text-align: center;
+  text-decoration: none;
+  text-transform: uppercase;
+  -webkit-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+}
+
+.Game-options button:disabled {
+  background-color: var(--border);
+}
+
+.Game-options button:hover:enabled,
+.Game-options button:active:enabled {
+  background-color: var(--text-color-primary);
+  color: white;
 }
 
 .App-footer {
