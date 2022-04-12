@@ -2,9 +2,9 @@
 
 :root {
   --text-color-primary--light: #F73333;
-  --text-color-primary: #F70000;
-  --text-color-secondary: #404040;
-  --background-dark: #EEEEEE;
+  --primary: #F70000;
+  --secondary: #404040;
+  --lgray: #A6A6A6;
   --border: rgba(128, 128, 128, 0.8);
   --answer-correct: rgb(87, 172, 120);
   --answer-elsewhere: rgb(233, 198, 1);
@@ -18,10 +18,10 @@
 
 body {
   text-align: center;
-  background-color: var(--background-dark);
+  background-color: #FFFFFF;
 }
 
-input,button {
+button {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
@@ -163,18 +163,18 @@ table.Game-rows > tbody {
 }
 
 body.dark {
-  background-color: var(--text-color-secondary);
+  background-color: var(--secondary);
   color: #E0E0E0;
   color-scheme: dark;
 }
 
 body.dark .Game-keyboard-button {
-  color: var(--text-color-secondary);
+  color: var(--secondary);
 }
 
 a,
 a:visited {
-  color: var(--text-color-primary);
+  color: var(--primary);
 }
 
 .Game-options {
@@ -189,10 +189,10 @@ a:visited {
 }
 
 .Game-options button {
+  color: #FFFFFF;
   min-width: 4rem;
-  background-color: white;
+  background-color: var(--secondary);
   border: none;
-  color: var(--text-color-secondary);
   display: inline-block;
   cursor: pointer;
   font-family: "Montserrat",serif;
@@ -213,8 +213,23 @@ a:visited {
 
 .Game-options button:hover:enabled,
 .Game-options button:active:enabled {
-  background-color: var(--text-color-primary);
-  color: white;
+  background-color: var(--primary);
+  color: #FFFFFF;
+}
+
+body.dark .Game-options button {
+  background-color: #FFFFFF;
+  color: var(--secondary);
+}
+
+body.dark .Game-options button:disabled {
+  background-color: var(--border);
+}
+
+body.dark .Game-options button:hover:enabled,
+body.dark .Game-options button:active:enabled {
+  background-color: var(--primary);
+  color: #FFFFFF;
 }
 
 .App-footer {
