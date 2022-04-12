@@ -477,5 +477,20 @@
   "hardware": "The basic hardware components required for closed-loop vibration testing include a vibration controller, power amplifier, electro-dynamic or servo-hydraulic shaker and transducer (typically an accelerometer).",
   "software": "The basic components required for closed-loop vibration testing include test control and analysis software, such as <a href=\"https://vibrationresearch.com/products/vibrationview/\" target=\"_blank\">VibrationVIEW</a>",
   "technician": "A person employed to look after technical equipment or do practical work in a laboratory.",
-  "specialist": "A person who concentrates primarily on a particular subject or activity; a person highly skilled in a specific and restricted field."
+  "specialist": "A person who concentrates primarily on a particular subject or activity; a person highly skilled in a specific and restricted field.",
+  "update": "<a href=\"https://vibrationresearch.com/upgrades-support-agreement/\" target=\"_blank\">U&SA</a> also includes continual software updates, so you always have access to our latest features, essentially a software insurance policy.",
+  "technical": "VR recognizes that providing customers with high-quality support contributes significantly to their long-term success. With that in mind, VR provides unlimited technical support via phone, email, webinar, and more to customers that are current with the <a href=\"https://vibrationresearch.com/upgrades-support-agreement/\" target=\"_blank\">U&SA agreement.</a>",
+  "upgrade": "Don’t let technology pass you by! In an effort to continue to provide you with the very best products and service, we encourage you to renew your <a href=\"https://vibrationresearch.com/upgrades-support-agreement/\" target=\"_blank\">U&SA agreement.</a> The first year is included with your purchase and renewals are available on an annual basis.",
+  "amp": "A vibration testing system runs in a closed-loop operation. The vibration controller sends a signal to the shaker via the power amplifier.",
+  "amplifier": "A vibration testing system runs in a closed-loop operation. The vibration controller sends a signal to the shaker via the power amplifier.",
+  "auto": "The auto-spectral density function is the discrete-time Fourier transform of the auto-correlation function Rxx(m). It is also known as the power spectral density (PSD).",
+  "modulus": "The modulus of elasticity, E, (static) is the initial slope of the stress versus strain curve (where Hooke’s Law applies) before the elastic limit is reached. The typical values are 30,000,000 pounds/square inch for steel and about 10,000,000 for aluminum.",
+  "sawtooth": "Examples of classical shock pulse shapes include half-sine, initial-peak, terminal-peak, square, triangle, sawtooth, trapezoid, and haversine.",
+  "initial": "Examples of classical shock pulse shapes include half-sine, initial-peak, terminal-peak, square, triangle, sawtooth, trapezoid, and haversine.",
+  "square": "Examples of classical shock pulse shapes include half-sine, initial-peak, terminal-peak, square, triangle, sawtooth, trapezoid, and haversine.",
+  "triangle": "Examples of classical shock pulse shapes include half-sine, initial-peak, terminal-peak, square, triangle, sawtooth, trapezoid, and haversine.",
+  "trapezoid": "Examples of classical shock pulse shapes include half-sine, initial-peak, terminal-peak, square, triangle, sawtooth, trapezoid, and haversine.",
+  "trapezoidal": "Examples of classical shock pulse shapes include half-sine, initial-peak, terminal-peak, square, triangle, sawtooth, trapezoid, and haversine.",
+  "half": "Examples of classical shock pulse shapes include half-sine, initial-peak, terminal-peak, square, triangle, sawtooth, trapezoid, and haversine.",
+  "terminal": "Examples of classical shock pulse shapes include half-sine, initial-peak, terminal-peak, square, triangle, sawtooth, trapezoid, and haversine."
 }
