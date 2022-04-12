@@ -78,7 +78,7 @@ function App() {
             fontStyle: difficulty > 1 ? "italic" : "inherit",
           }}
         >
-          <img src="/logo.png"
+          <img src="logo.png"
             style={{
               position: "relative",
               top: "20px",
