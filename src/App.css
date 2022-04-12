@@ -162,16 +162,6 @@ table.Game-rows > tbody {
   color: white !important;
 }
 
-body.dark {
-  background-color: var(--secondary);
-  color: #E0E0E0;
-  color-scheme: dark;
-}
-
-body.dark .Game-keyboard-button {
-  color: var(--secondary);
-}
-
 a,
 a:visited {
   color: var(--primary);
@@ -213,21 +203,6 @@ a:visited {
 
 .Game-options button:hover:enabled,
 .Game-options button:active:enabled {
-  background-color: var(--primary);
-  color: #FFFFFF;
-}
-
-body.dark .Game-options button {
-  background-color: #FFFFFF;
-  color: var(--secondary);
-}
-
-body.dark .Game-options button:disabled {
-  background-color: var(--border);
-}
-
-body.dark .Game-options button:hover:enabled,
-body.dark .Game-options button:active:enabled {
   background-color: var(--primary);
   color: #FFFFFF;
 }

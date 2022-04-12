@@ -116,15 +116,6 @@ function App() {
         <div className="Settings">
           <div className="Settings-setting">
             <input
-              id="dark-setting"
-              type="checkbox"
-              checked={dark}
-              onChange={() => setDark((x: boolean) => !x)}
-            />
-            <label htmlFor="dark-setting">Dark theme</label>
-          </div>
-          <div className="Settings-setting">
-            <input
               id="colorblind-setting"
               type="checkbox"
               checked={colorBlind}
@@ -154,7 +145,7 @@ function App() {
               >
                 {
                   [
-                    `Guesses must be valid dictionary words.`,
+                    `Guesses must be valid dictionary words or acronyms.`,
                     `Wordle's "Hard Mode". Green letters must stay fixed, and yellow letters must be reused.`,
                     `An even stricter Hard Mode. Yellow letters must move away from where they were clued, and gray clues must be obeyed.`,
                   ][difficulty]
