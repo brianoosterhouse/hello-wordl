@@ -35,10 +35,6 @@ const todaySeed =
 function App() {
   type Page = "game" | "about" | "settings";
   const [page, setPage] = useState<Page>("game");
-  const prefersDark =
-    window.matchMedia &&
-    window.matchMedia("(prefers-color-scheme: dark)").matches;
-  const [dark, setDark] = useSetting<boolean>("dark", prefersDark);
   const [colorBlind, setColorBlind] = useSetting<boolean>("colorblind", false);
   const [difficulty, setDifficulty] = useSetting<number>("difficulty", 0);
   const [keyboard, setKeyboard] = useSetting<string>(
@@ -48,7 +44,6 @@ function App() {
   const [enterLeft, setEnterLeft] = useSetting<boolean>("enter-left", false);
 
   useEffect(() => {
-    document.body.className = dark ? "dark" : "";
     if (urlParam("today") !== null || urlParam("todas") !== null) {
       document.location = "?seed=" + todaySeed;
     }
@@ -56,7 +51,7 @@ function App() {
       // Avoid transition on page load
       document.body.style.transition = "0.3s background-color ease-out";
     }, 1);
-  }, [dark]);
+  });
 
   const link = (emoji: string, label: string, page: Page) => (
     <button
