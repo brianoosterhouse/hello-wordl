@@ -30,10 +30,6 @@ export const seed = Number(urlParam("seed"));
 const makeRandom = () => (seed ? mulberry32(seed) : () => Math.random());
 let random = makeRandom();
 
-export function resetRng(): void {
-  random = makeRandom();
-}
-
 export function pick<T>(array: Array<T>): T {
   return array[Math.floor(array.length * random())];
 }
