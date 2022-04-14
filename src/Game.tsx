@@ -264,31 +264,35 @@ function Game(props: GameProps) {
         <button
           className={"vr-button secondary"}
           style={{ flex: "0 0 auto" }}
-          disabled={gameState !== GameState.Playing || guesses.length === 0}
+          disabled={guesses.length === 0}
           onClick={() => {
-            Object.values(targets).forEach((definition, i) => {
-              if (Object.keys(targets)[i] === target) {
-                targetDefinition = definition;
+            if (gameState === GameState.Playing) {
+              Object.values(targets).forEach((definition, i) => {
+                if (Object.keys(targets)[i] === target) {
+                  targetDefinition = definition;
+                }
+              });
+              if (targetDefinition === '') {
+                setHint(
+                  parseHtml(
+                    `The answer was <span style="color: #F70000; font-weight: 600;">${target.toUpperCase()}</span>. (Enter to play again)`
+                  )
+                );
+              } else {
+                setHint(
+                  parseHtml(
+                    `The answer was <span style="color: #F70000; font-weight: 600;">${target.toUpperCase()}</span>. (Enter to play again)<p>${targetDefinition}</p>`
+                  )
+                );
               }
-            });
-            if (targetDefinition === '') {
-              setHint(
-                parseHtml(
-                  `The answer was <span style="color: #F70000; font-weight: 600;">${target.toUpperCase()}</span>. (Enter to play again)`
-                )
-              );
+              setGameState(GameState.Lost);
+              (document.activeElement as HTMLElement)?.blur();
             } else {
-              setHint(
-                parseHtml(
-                  `The answer was <span style="color: #F70000; font-weight: 600;">${target.toUpperCase()}</span>. (Enter to play again)<p>${targetDefinition}</p>`
-                )
-              );
+              startNextGame();
             }
-            setGameState(GameState.Lost);
-            (document.activeElement as HTMLElement)?.blur();
           }}
         >
-          Give up
+          {gameState === GameState.Playing ? "Give up" : "Play again"}
         </button>
       </div>
       <table
