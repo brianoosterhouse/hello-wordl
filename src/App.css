@@ -178,10 +178,9 @@ a:visited {
   margin-inline-start: 0.5rem;
 }
 
-.Game-options button {
+.Game-options button, .vr-button {
   color: #FFFFFF;
   min-width: 4rem;
-  background-color: var(--secondary);
   border: none;
   display: inline-block;
   cursor: pointer;
@@ -199,11 +198,31 @@ a:visited {
 
 .Game-options button:disabled {
   background-color: var(--border);
+  cursor: initial;
 }
 
 .Game-options button:hover:enabled,
 .Game-options button:active:enabled {
   background-color: var(--primary);
+  color: #FFFFFF;
+}
+
+.lgray {
+  background-color: var(--lgray);
+  color: #FFFFFF;
+}
+
+.red {
+  background-color: var(--primary);
+  color: #FFFFFF;
+}
+
+.red:hover {
+  background-color: var(--lgray);
+}
+
+.secondary {
+  background-color: var(--secondary);
   color: #FFFFFF;
 }
 
