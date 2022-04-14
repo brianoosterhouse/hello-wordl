@@ -1,13 +1,12 @@
 import { useEffect, useRef, useState } from "react";
 import { Row, RowState } from "./Row";
 import dictionary from "./dictionary.json";
-import { Clue, clue, describeClue, violation } from "./clue";
+import { Clue, clue, describeClue } from "./clue";
 import { Keyboard } from "./Keyboard";
 import targets from "./targets.json";
 import {
   describeSeed,
   dictionarySet,
-  Difficulty,
   gameName,
   parseHtml,
   pick,
@@ -27,7 +26,6 @@ enum GameState {
 interface GameProps {
   maxGuesses: number;
   hidden: boolean;
-  difficulty: Difficulty;
   colorBlind: boolean;
   keyboardLayout: string;
 }
@@ -157,14 +155,6 @@ function Game(props: GameProps) {
         setHint("Not a valid word");
         return;
       }
-      for (const g of guesses) {
-        const c = clue(g, target);
-        const feedback = violation(props.difficulty, c, currentGuess);
-        if (feedback) {
-          setHint(feedback);
-          return;
-        }
-      }
       setGuesses((guesses) => guesses.concat([currentGuess]));
       setCurrentGuess((guess) => "");
 
@@ -179,11 +169,9 @@ function Game(props: GameProps) {
           index++;
         }
         return parseHtml(
-          `You ${verbed}! The answer was ${target.toUpperCase()}. (Enter to ${
+          `You ${verbed}! The answer was <span style="color: #F70000; font-weight: 600;">${target.toUpperCase()}</span>. (Enter to ${
             challenge ? "play a random game" : "play again"
-          })
-
-          ${target.toUpperCase()}: ${targetDefinition}`
+          })<p>${targetDefinition}</p>`
         );
       }
 
@@ -274,6 +262,7 @@ function Game(props: GameProps) {
           }}
         ></input>
         <button
+          className={"vr-button secondary"}
           style={{ flex: "0 0 auto" }}
           disabled={gameState !== GameState.Playing || guesses.length === 0}
           onClick={() => {
@@ -284,14 +273,14 @@ function Game(props: GameProps) {
             });
             if (targetDefinition === '') {
               setHint(
-                `The answer was ${target.toUpperCase()}. (Enter to play again)`
+                parseHtml(
+                  `The answer was <span style="color: #F70000; font-weight: 600;">${target.toUpperCase()}</span>. (Enter to play again)`
+                )
               );
             } else {
               setHint(
                 parseHtml(
-                  `The answer was ${target.toUpperCase()}. (Enter to play again)
-
-                  ${target.toUpperCase()}: ${targetDefinition}`
+                  `The answer was <span style="color: #F70000; font-weight: 600;">${target.toUpperCase()}</span>. (Enter to play again)<p>${targetDefinition}</p>`
                 )
               );
             }

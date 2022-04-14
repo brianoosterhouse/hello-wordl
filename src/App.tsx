@@ -2,7 +2,8 @@ import "./App.css";
 import { maxGuesses, seed, urlParam } from "./util";
 import Game from "./Game";
 import { useEffect, useState } from "react";
-import { About } from "./About";
+import { Row, RowState } from "./Row";
+import { Clue } from "./clue";
 
 function useSetting<T>(
   key: string,
@@ -36,7 +37,6 @@ function App() {
   type Page = "game" | "about" | "settings";
   const [page, setPage] = useState<Page>("game");
   const [colorBlind, setColorBlind] = useSetting<boolean>("colorblind", false);
-  const [difficulty, setDifficulty] = useSetting<number>("difficulty", 0);
   const [keyboard, setKeyboard] = useSetting<string>(
     "keyboard",
     "qwertyuiop-asdfghjkl-BzxcvbnmE"
@@ -53,44 +53,35 @@ function App() {
     }, 1);
   });
 
-  const link = (emoji: string, label: string, page: Page) => (
-    <button
-      className="emoji-link"
+  const link = (text: string, page: Page) => (
+    <a
+      href="#"
+      className=""
       onClick={() => setPage(page)}
-      title={label}
-      aria-label={label}
     >
-      {emoji}
-    </button>
+      {text}
+    </a>
   );
 
   return (
     <div className={"App-container" + (colorBlind ? " color-blind" : "")}>
       <h1>
-        <span
+        <img src="logo.png"
           style={{
-            color: difficulty > 0 ? "#e66" : "inherit",
-            fontStyle: difficulty > 1 ? "italic" : "inherit",
+            position: "relative",
+            top: "20px",
           }}
-        >
-          <img src="logo.png"
-            style={{
-              position: "relative",
-              top: "20px",
-            }}
-            alt={"Vibration Research logo"}
-            aria-label={"VR"}
-          ></img>
-        </span>
+          alt={"Vibration Research logo"}
+          aria-label={"VR"}
+        ></img>
         dle
       </h1>
       <div className="top-right">
         {page !== "game" ? (
-          link("❌", "Close", "game")
+          link("Back", "game")
         ) : (
           <>
-            {link("❓", "About", "about")}
-            {link("⚙️", "Settings", "settings")}
+            {link("About", "about")}
           </>
         )}
       </div>
@@ -106,8 +97,7 @@ function App() {
           {seed ? "Random" : "Today's"}
         </a>
       </div>
-      {page === "about" && <About />}
-      {page === "settings" && (
+      {page === "about" && <div className="App-about">
         <div className="Settings">
           <div className="Settings-setting">
             <input
@@ -119,37 +109,6 @@ function App() {
             <label htmlFor="colorblind-setting">High-contrast colors</label>
           </div>
           <div className="Settings-setting">
-            <input
-              id="difficulty-setting"
-              type="range"
-              min="0"
-              max="2"
-              value={difficulty}
-              onChange={(e) => setDifficulty(+e.target.value)}
-            />
-            <div>
-              <label htmlFor="difficulty-setting">Difficulty:</label>
-              <strong>{["Normal", "Hard", "Ultra Hard"][difficulty]}</strong>
-              <div
-                style={{
-                  fontSize: 14,
-                  height: 40,
-                  marginLeft: 8,
-                  marginTop: 8,
-                }}
-              >
-                {
-                  [
-                    `Guesses must be valid dictionary words or acronyms.`,
-                    `Wordle's "Hard Mode". Green letters must stay fixed, and yellow letters must be reused.`,
-                    `An even stricter Hard Mode. Yellow letters must move away from where they were clued, and gray clues must be obeyed.`,
-                  ][difficulty]
-                }
-              </div>
-            </div>
-          </div>
-          <div className="Settings-setting">
-            <label htmlFor="keyboard-setting">Keyboard layout:</label>
             <select
               name="keyboard-setting"
               id="keyboard-setting"
@@ -162,21 +121,92 @@ function App() {
               <option value="BpyfgcrlE-aoeuidhtns-qjkxbmwvz">Dvorak</option>
               <option value="qwfpgjluy-arstdhneio-BzxcvbkmE">Colemak</option>
             </select>
-            <input
-              style={{ marginLeft: 20 }}
-              id="enter-left-setting"
-              type="checkbox"
-              checked={enterLeft}
-              onChange={() => setEnterLeft((x: boolean) => !x)}
-            />
-            <label htmlFor="enter-left-setting">"Enter" on left side</label>
+            <label htmlFor="keyboard-setting">Keyboard layout</label>
           </div>
         </div>
-      )}
+        <br />
+        <Row
+          rowState={RowState.LockedIn}
+          wordLength={4}
+          cluedLetters={[
+            { clue: Clue.Absent, letter: "w" },
+            { clue: Clue.Absent, letter: "o" },
+            { clue: Clue.Correct, letter: "r" },
+            { clue: Clue.Elsewhere, letter: "d" },
+          ]}
+        />
+        <p>
+          <b>W</b> and <b>O</b> aren't in the target word at all.
+        </p>
+        <p>
+          <b className={"green-bg"}>R</b> is correct! The third letter is{" "}
+          <b className={"green-bg"}>R</b>
+          .<br />
+          <strong>(There may still be a second R in the word.)</strong>
+        </p>
+        <p>
+          <b className={"yellow-bg"}>D</b> occurs <em>elsewhere</em> in the target
+          word.
+          <br />
+          <strong>(Perhaps more than once.)</strong>
+        </p>
+        <hr />
+        <p>
+          Let's move the <b>D</b> in our next guess:
+        </p>
+        <Row
+          rowState={RowState.LockedIn}
+          wordLength={4}
+          cluedLetters={[
+            { clue: Clue.Correct, letter: "d" },
+            { clue: Clue.Correct, letter: "a" },
+            { clue: Clue.Correct, letter: "r" },
+            { clue: Clue.Absent, letter: "k" },
+          ]}
+          annotation={"So close!"}
+        />
+        <Row
+          rowState={RowState.LockedIn}
+          wordLength={4}
+          cluedLetters={[
+            { clue: Clue.Correct, letter: "d" },
+            { clue: Clue.Correct, letter: "a" },
+            { clue: Clue.Correct, letter: "r" },
+            { clue: Clue.Correct, letter: "t" },
+          ]}
+          annotation={"Got it!"}
+        />
+        <hr />
+        <p style={{ fontSize: "10px" }}>
+          MIT License
+
+          Copyright (c) 2022 Lynn
+
+          Permission is hereby granted, free of charge, to any person obtaining a copy
+          of this software and associated documentation files (the "Software"), to deal
+          in the Software without restriction, including without limitation the rights
+          to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+          copies of the Software, and to permit persons to whom the Software is
+          furnished to do so, subject to the following conditions:
+
+          The above copyright notice and this permission notice shall be included in all
+          copies or substantial portions of the Software.
+
+          THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+          IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+          FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+          AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+          LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+          OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+          SOFTWARE.
+          <br />
+          <br />
+          <a href="https://github.com/lynn/hello-wordl" target="_blank" rel="noreferrer noopener">View the original source code on GitHub</a>
+        </p>
+      </div>}
       <Game
         maxGuesses={maxGuesses}
         hidden={page !== "game"}
-        difficulty={difficulty}
         colorBlind={colorBlind}
         keyboardLayout={keyboard.replaceAll(
           /[BE]/g,
