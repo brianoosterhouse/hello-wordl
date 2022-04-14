@@ -32,7 +32,7 @@ interface GameProps {
 
 const minLength = 3;
 const defaultLength = 5;
-const maxLength = 11;
+const maxLength = 7;
 const limitLength = (n: number) =>
   n >= minLength && n <= maxLength ? n : defaultLength;
 
