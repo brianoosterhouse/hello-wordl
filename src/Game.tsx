@@ -42,10 +42,8 @@ const maxLength = 7;
 const limitLength = (n: number) =>
   n >= minLength && n <= maxLength ? n : defaultLength;
 
-function parseUrlLength(): number {
-  const lengthParam = urlParam("length");
-  if (!lengthParam) return defaultLength;
-  return limitLength(Number(lengthParam));
+function parseLength(target: string) {
+  return target.split('').length;
 }
 
 function parseUrlGameNumber(): number {
@@ -59,26 +57,15 @@ function Game(props: GameProps) {
   const [gameState, setGameState] = useState(GameState.Playing);
   const [guesses, setGuesses] = useState<string[]>([]);
   const [currentGuess, setCurrentGuess] = useState<string>("");
-  const [wordLength, setWordLength] = useState(
-    parseUrlLength()
-  );
-  const [gameNumber, setGameNumber] = useState(parseUrlGameNumber());
   const [target, setTarget] = useState(() => {
     return Object.keys(targets)[currentDay()];
   });
+  const [wordLength, setWordLength] = useState(
+    Number(parseLength(target))
+  );
+  const [gameNumber, setGameNumber] = useState(parseUrlGameNumber());
   let targetDefinition = '';
   const [hint, setHint] = useState<string>(`Make your first guess!`);
-  const currentSeedParams = () =>
-    `?seed=${seed}&length=${wordLength}&game=${gameNumber}`;
-  useEffect(() => {
-    if (seed) {
-      window.history.replaceState(
-        {},
-        document.title,
-        window.location.pathname + currentSeedParams()
-      );
-    }
-  }, [wordLength, gameNumber]);
   const tableRef = useRef<HTMLTableElement>(null);
 
   const onKey = (key: string) => {
