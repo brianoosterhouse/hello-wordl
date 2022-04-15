@@ -62,6 +62,15 @@ export function ordinal(n: number): string {
 export const englishNumbers =
   "zero one two three four five six seven eight nine ten eleven".split(" ");
 
+export function currentDay(): number {
+  const now = new Date();
+  const start = new Date(now.getFullYear(), 0, 0);
+  const diff = Number(now) - Number(start);
+  const oneDay = 1000 * 60 * 60 * 24;
+  const day = Math.floor(diff / oneDay);
+  return day;
+}
+
 export function describeSeed(seed: number): string {
   const year = Math.floor(seed / 10000);
   const month = Math.floor(seed / 100) % 100;

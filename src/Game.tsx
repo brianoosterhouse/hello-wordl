@@ -5,6 +5,7 @@ import { Clue, clue, describeClue } from "./clue";
 import { Keyboard } from "./Keyboard";
 import targets from "./targets.json";
 import {
+  currentDay,
   describeSeed,
   dictionarySet,
   gameName,
@@ -63,7 +64,7 @@ function Game(props: GameProps) {
   );
   const [gameNumber, setGameNumber] = useState(parseUrlGameNumber());
   const [target, setTarget] = useState(() => {
-    return todaySeed;
+    return Object.keys(targets)[currentDay()];
   });
   let targetDefinition = '';
   const [hint, setHint] = useState<string>(`Make your first guess!`);
