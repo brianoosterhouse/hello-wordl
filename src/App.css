@@ -1,10 +1,32 @@
+@import url("https://fonts.googleapis.com/css?family=Montserrat:300,400,600");
+
+:root {
+  --text-color-primary--light: #F73333;
+  --primary: #F70000;
+  --secondary: #404040;
+  --lgray: #A6A6A6;
+  --border: rgba(128, 128, 128, 0.8);
+  --answer-correct: rgb(87, 172, 120);
+  --answer-elsewhere: rgb(233, 198, 1);
+  --answer-absent: rgb(162, 162, 162);
+}
+
 * {
   box-sizing: border-box;
+  font-family: "Montserrat", serif;
 }
 
 body {
   text-align: center;
-  background-color: #eeeeee;
+  background-color: #FFFFFF;
+}
+
+button {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  margin: 0;
+  padding: 0;
 }
 
 .Row {
@@ -15,7 +37,7 @@ body {
 
 .Row-letter {
   margin: 2px;
-  border: 2px solid rgba(128, 128, 128, 0.8);
+  border: 2px solid var(--border);
   flex: 1;
   max-width: 40px;
   height: 40px;
@@ -28,7 +50,7 @@ body {
 }
 .Row-letter-color {
   margin: 2px;
-  border: 2px solid rgba(128, 128, 128, 0.8);
+  border: 2px solid var(--border);
   flex: 1;
   max-width: 40px;
   height: 40px;
@@ -97,7 +119,7 @@ table.Game-rows > tbody {
 
 .Game-keyboard-button {
   margin: 2px;
-  background-color: #cdcdcd;
+  background-color: #CDCDCD;
   padding: 2px;
   text-transform: capitalize;
   border-radius: 4px;
@@ -124,54 +146,80 @@ table.Game-rows > tbody {
 
 .letter-correct {
   border: 2px solid rgba(0, 0, 0, 0.3);
-  background-color: rgb(87, 172, 120);
+  background-color: var(--answer-correct);
   color: white !important;
 }
 
 .letter-elsewhere {
   border: 2px dotted rgba(0, 0, 0, 0.3);
-  background-color: #e9c601;
+  background-color: var(--answer-elsewhere);
   color: white !important;
 }
 
 .letter-absent {
   border: 2px solid transparent;
-  background-color: rgb(162, 162, 162);
+  background-color: var(--answer-absent);
   color: white !important;
-}
-
-body.dark {
-  background-color: #404040;
-  color: #e0e0e0;
-  color-scheme: dark;
-}
-
-body.dark .Game-keyboard-button {
-  color: #404040;
 }
 
 a,
 a:visited {
-  color: #8080ff;
-}
-
-a:active {
-  color: #cc77ff;
+  color: var(--primary);
 }
 
 .Game-options {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 1rem;
+  margin-top: 1rem;
 }
 
-.Game-options > * + * {
-  margin-inline-start: 0.5rem;
-}
-
-.Game-options button {
+.Game-options button, .vr-button {
+  color: #FFFFFF;
   min-width: 4rem;
+  border: none;
+  display: inline-block;
+  cursor: pointer;
+  font-family: "Montserrat",serif;
+  font-size: 15px;
+  font-weight: 400;
+  padding: 10px 30px;
+  line-height: 1.5em;
+  text-align: center;
+  text-decoration: none;
+  text-transform: uppercase;
+  -webkit-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+}
+
+.Game-options button:disabled {
+  background-color: var(--border);
+  cursor: initial;
+}
+
+.Game-options button:hover:enabled,
+.Game-options button:active:enabled {
+  background-color: var(--primary);
+  color: #FFFFFF;
+}
+
+.lgray {
+  background-color: var(--lgray);
+  color: #FFFFFF;
+}
+
+.red {
+  background-color: var(--primary);
+  color: #FFFFFF;
+}
+
+.red:hover {
+  background-color: var(--lgray);
+}
+
+.secondary {
+  background-color: var(--secondary);
+  color: #FFFFFF;
 }
 
 .App-footer {
@@ -186,18 +234,18 @@ a:active {
 }
 
 .App-about b {
-  background-color: #888;
+  background-color: #888888;
   color: white;
   padding: 1px 3px;
   border-radius: 2px;
 }
 
 .App-about b.green-bg {
-  background-color: rgb(87, 172, 120);
+  background-color: var(--answer-correct);
 }
 
 .App-about b.yellow-bg {
-  background-color: #e9c601;
+  background-color: var(--answer-elsewhere);
 }
 
 .Game-seed-info {

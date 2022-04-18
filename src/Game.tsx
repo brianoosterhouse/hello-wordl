@@ -1,19 +1,14 @@
 import { useEffect, useRef, useState } from "react";
 import { Row, RowState } from "./Row";
 import dictionary from "./dictionary.json";
-import { Clue, clue, describeClue, violation } from "./clue";
+import { Clue, clue, describeClue } from "./clue";
 import { Keyboard } from "./Keyboard";
-import targetList from "./targets.json";
+import targets from "./targets.json";
 import {
-  describeSeed,
-  dictionarySet,
-  Difficulty,
+  currentDay,
   gameName,
-  pick,
-  resetRng,
-  seed,
+  parseHtml,
   speak,
-  urlParam,
 } from "./util";
 import { decode, encode } from "./base64";
 
@@ -26,115 +21,42 @@ enum GameState {
 interface GameProps {
   maxGuesses: number;
   hidden: boolean;
-  difficulty: Difficulty;
   colorBlind: boolean;
   keyboardLayout: string;
 }
 
-const targets = targetList.slice(0, targetList.indexOf("test") + 1); // Words no rarer than this one
+const now = new Date();
+const todaySeed =
+  now.toLocaleDateString("en-US", { year: "numeric" }) +
+  now.toLocaleDateString("en-US", { month: "2-digit" }) +
+  now.toLocaleDateString("en-US", { day: "2-digit" });
+
 const minLength = 3;
 const defaultLength = 5;
-const maxLength = 11;
+const maxLength = 7;
 const limitLength = (n: number) =>
   n >= minLength && n <= maxLength ? n : defaultLength;
 
-function randomTarget(wordLength: number): string {
-  const eligible = targets.filter((word) => word.length === wordLength);
-  let candidate: string;
-  do {
-    candidate = pick(eligible);
-  } while (/\*/.test(candidate));
-  return candidate;
-}
-
-function getChallengeUrl(target: string): string {
-  return (
-    window.location.origin +
-    window.location.pathname +
-    "?challenge=" +
-    encode(target)
-  );
-}
-
-let initChallenge = "";
-let challengeError = false;
-try {
-  initChallenge = decode(urlParam("challenge") ?? "").toLowerCase();
-} catch (e) {
-  console.warn(e);
-  challengeError = true;
-}
-if (initChallenge && !dictionarySet.has(initChallenge)) {
-  initChallenge = "";
-  challengeError = true;
-}
-
-function parseUrlLength(): number {
-  const lengthParam = urlParam("length");
-  if (!lengthParam) return defaultLength;
-  return limitLength(Number(lengthParam));
-}
-
-function parseUrlGameNumber(): number {
-  const gameParam = urlParam("game");
-  if (!gameParam) return 1;
-  const gameNumber = Number(gameParam);
-  return gameNumber >= 1 && gameNumber <= 1000 ? gameNumber : 1;
+function parseLength(target: string) {
+  return target.split('').length;
 }
 
 function Game(props: GameProps) {
   const [gameState, setGameState] = useState(GameState.Playing);
   const [guesses, setGuesses] = useState<string[]>([]);
   const [currentGuess, setCurrentGuess] = useState<string>("");
-  const [challenge, setChallenge] = useState<string>(initChallenge);
-  const [wordLength, setWordLength] = useState(
-    challenge ? challenge.length : parseUrlLength()
-  );
-  const [gameNumber, setGameNumber] = useState(parseUrlGameNumber());
   const [target, setTarget] = useState(() => {
-    resetRng();
-    // Skip RNG ahead to the parsed initial game number:
-    for (let i = 1; i < gameNumber; i++) randomTarget(wordLength);
-    return challenge || randomTarget(wordLength);
+    return Object.keys(targets)[currentDay()];
   });
-  const [hint, setHint] = useState<string>(
-    challengeError
-      ? `Invalid challenge string, playing random game.`
-      : `Make your first guess!`
+  const [wordLength, setWordLength] = useState(
+    Number(parseLength(target))
   );
-  const currentSeedParams = () =>
-    `?seed=${seed}&length=${wordLength}&game=${gameNumber}`;
-  useEffect(() => {
-    if (seed) {
-      window.history.replaceState(
-        {},
-        document.title,
-        window.location.pathname + currentSeedParams()
-      );
-    }
-  }, [wordLength, gameNumber]);
+  let targetDefinition = '';
+  const [hint, setHint] = useState<string>(`Make your first guess!`);
   const tableRef = useRef<HTMLTableElement>(null);
-  const startNextGame = () => {
-    if (challenge) {
-      // Clear the URL parameters:
-      window.history.replaceState({}, document.title, window.location.pathname);
-    }
-    setChallenge("");
-    const newWordLength = limitLength(wordLength);
-    setWordLength(newWordLength);
-    setTarget(randomTarget(newWordLength));
-    setHint("");
-    setGuesses([]);
-    setCurrentGuess("");
-    setGameState(GameState.Playing);
-    setGameNumber((x) => x + 1);
-  };
 
   const onKey = (key: string) => {
     if (gameState !== GameState.Playing) {
-      if (key === "Enter") {
-        startNextGame();
-      }
       return;
     }
     if (guesses.length === props.maxGuesses) return;
@@ -156,21 +78,19 @@ function Game(props: GameProps) {
         setHint("Not a valid word");
         return;
       }
-      for (const g of guesses) {
-        const c = clue(g, target);
-        const feedback = violation(props.difficulty, c, currentGuess);
-        if (feedback) {
-          setHint(feedback);
-          return;
-        }
-      }
       setGuesses((guesses) => guesses.concat([currentGuess]));
       setCurrentGuess((guess) => "");
 
-      const gameOver = (verbed: string) =>
-        `You ${verbed}! The answer was ${target.toUpperCase()}. (Enter to ${
-          challenge ? "play a random game" : "play again"
-        })`;
+      const gameOver = (verbed: string) => {
+        Object.values(targets).forEach((definition, i) => {
+          if (Object.keys(targets)[i] === target) {
+            targetDefinition = definition;
+          }
+        });
+        return parseHtml(
+          `You ${verbed}! The answer was <span style="color: #F70000; font-weight: 600;">${target.toUpperCase()}</span>.<p>${targetDefinition}</p>`
+        );
+      }
 
       if (currentGuess === target) {
         setHint(gameOver("won"));
@@ -234,44 +154,6 @@ function Game(props: GameProps) {
 
   return (
     <div className="Game" style={{ display: props.hidden ? "none" : "block" }}>
-      <div className="Game-options">
-        <label htmlFor="wordLength">Letters:</label>
-        <input
-          type="range"
-          min={minLength}
-          max={maxLength}
-          id="wordLength"
-          disabled={
-            gameState === GameState.Playing &&
-            (guesses.length > 0 || currentGuess !== "" || challenge !== "")
-          }
-          value={wordLength}
-          onChange={(e) => {
-            const length = Number(e.target.value);
-            resetRng();
-            setGameNumber(1);
-            setGameState(GameState.Playing);
-            setGuesses([]);
-            setCurrentGuess("");
-            setTarget(randomTarget(length));
-            setWordLength(length);
-            setHint(`${length} letters`);
-          }}
-        ></input>
-        <button
-          style={{ flex: "0 0 auto" }}
-          disabled={gameState !== GameState.Playing || guesses.length === 0}
-          onClick={() => {
-            setHint(
-              `The answer was ${target.toUpperCase()}. (Enter to play again)`
-            );
-            setGameState(GameState.Lost);
-            (document.activeElement as HTMLElement)?.blur();
-          }}
-        >
-          Give up
-        </button>
-      </div>
       <table
         className="Game-rows"
         tabIndex={0}
@@ -294,12 +176,41 @@ function Game(props: GameProps) {
         letterInfo={letterInfo}
         onKey={onKey}
       />
-      <div className="Game-seed-info">
-        {challenge
-          ? "playing a challenge game"
-          : seed
-          ? `${describeSeed(seed)} — length ${wordLength}, game ${gameNumber}`
-          : "playing a random game"}
+      <div className="Game-options">
+        <button
+          className={"vr-button secondary"}
+          style={{
+            flex: "0 0 auto",
+            display: gameState === GameState.Playing ? "flex" : "none"
+          }}
+          disabled={gameState !== GameState.Playing || guesses.length === 0}
+          onClick={() => {
+            if (gameState === GameState.Playing) {
+              Object.values(targets).forEach((definition, i) => {
+                if (Object.keys(targets)[i] === target) {
+                  targetDefinition = definition;
+                }
+              });
+              if (targetDefinition === '') {
+                setHint(
+                  parseHtml(
+                    `The answer was <span style="color: #F70000; font-weight: 600;">${target.toUpperCase()}</span>.`
+                  )
+                );
+              } else {
+                setHint(
+                  parseHtml(
+                    `The answer was <span style="color: #F70000; font-weight: 600;">${target.toUpperCase()}</span>. <p>${targetDefinition}</p>`
+                  )
+                );
+              }
+              setGameState(GameState.Lost);
+              (document.activeElement as HTMLElement)?.blur();
+            }
+          }}
+        >
+          Give up
+        </button>
       </div>
     </div>
   );
