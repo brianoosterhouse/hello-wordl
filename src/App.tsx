@@ -1,5 +1,5 @@
 import "./App.css";
-import { maxGuesses, seed, urlParam } from "./util";
+import { maxGuesses } from "./util";
 import Game from "./Game";
 import { useEffect, useState } from "react";
 import { Row, RowState } from "./Row";
@@ -27,12 +27,6 @@ function useSetting<T>(
   return [current, setSetting];
 }
 
-const now = new Date();
-const todaySeed =
-  now.toLocaleDateString("en-US", { year: "numeric" }) +
-  now.toLocaleDateString("en-US", { month: "2-digit" }) +
-  now.toLocaleDateString("en-US", { day: "2-digit" });
-
 function App() {
   type Page = "game" | "about" | "settings";
   const [page, setPage] = useState<Page>("game");
@@ -44,9 +38,6 @@ function App() {
   const [enterLeft, setEnterLeft] = useSetting<boolean>("enter-left", false);
 
   useEffect(() => {
-    if (urlParam("today") !== null || urlParam("todas") !== null) {
-      document.location = "?seed=" + todaySeed;
-    }
     setTimeout(() => {
       // Avoid transition on page load
       document.body.style.transition = "0.3s background-color ease-out";

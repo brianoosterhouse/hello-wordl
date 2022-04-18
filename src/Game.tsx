@@ -6,14 +6,9 @@ import { Keyboard } from "./Keyboard";
 import targets from "./targets.json";
 import {
   currentDay,
-  describeSeed,
-  dictionarySet,
   gameName,
   parseHtml,
-  pick,
-  seed,
   speak,
-  urlParam,
 } from "./util";
 import { decode, encode } from "./base64";
 
@@ -46,13 +41,6 @@ function parseLength(target: string) {
   return target.split('').length;
 }
 
-function parseUrlGameNumber(): number {
-  const gameParam = urlParam("game");
-  if (!gameParam) return 1;
-  const gameNumber = Number(gameParam);
-  return gameNumber >= 1 && gameNumber <= 1000 ? gameNumber : 1;
-}
-
 function Game(props: GameProps) {
   const [gameState, setGameState] = useState(GameState.Playing);
   const [guesses, setGuesses] = useState<string[]>([]);
@@ -63,7 +51,6 @@ function Game(props: GameProps) {
   const [wordLength, setWordLength] = useState(
     Number(parseLength(target))
   );
-  const [gameNumber, setGameNumber] = useState(parseUrlGameNumber());
   let targetDefinition = '';
   const [hint, setHint] = useState<string>(`Make your first guess!`);
   const tableRef = useRef<HTMLTableElement>(null);
@@ -95,15 +82,11 @@ function Game(props: GameProps) {
       setCurrentGuess((guess) => "");
 
       const gameOver = (verbed: string) => {
-        let index = 0;
         Object.values(targets).forEach((definition, i) => {
           if (Object.keys(targets)[i] === target) {
             targetDefinition = definition;
           }
         });
-        for (let answer in Object.keys(targets)) {
-          index++;
-        }
         return parseHtml(
           `You ${verbed}! The answer was <span style="color: #F70000; font-weight: 600;">${target.toUpperCase()}</span>. )<p>${targetDefinition}</p>`
         );
