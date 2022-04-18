@@ -79,15 +79,6 @@ function App() {
           </>
         )}
       </div>
-      <div
-        style={{
-          position: "absolute",
-          left: 5,
-          top: 5,
-          visibility: page === "game" ? "visible" : "hidden",
-        }}
-      >
-      </div>
       {page === "about" && <div className="App-about">
         <div className="Settings">
           <div className="Settings-setting">
