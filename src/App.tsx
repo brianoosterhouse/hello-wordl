@@ -48,7 +48,10 @@ function App() {
     <a
       href="#"
       className=""
-      onClick={() => setPage(page)}
+      onClick={(e => {
+        e.preventDefault();
+        setPage(page)
+      })}
     >
       {text}
     </a>
