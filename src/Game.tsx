@@ -74,7 +74,7 @@ function Game(props: GameProps) {
         setHint("Too short");
         return;
       }
-      if (!dictionary.includes(currentGuess)) {
+      if (!dictionary.includes(currentGuess) && !Object.keys(targets).includes(currentGuess)) {
         setHint("Not a valid word");
         return;
       }
