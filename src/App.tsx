@@ -61,12 +61,10 @@ function App() {
     <div className={"App-container" + (colorBlind ? " color-blind" : "")}>
       <h1>
         <img src="logo.png"
-          style={{
-            position: "relative",
-            top: "20px",
-          }}
           alt={"VR"}
           aria-label={"VR"}
+          height={"64"}
+          width={"64"}
         ></img>
         dle
       </h1>
@@ -181,9 +179,6 @@ function App() {
           LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
           OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
           SOFTWARE.
-          <br />
-          <br />
-          <a href="https://github.com/lynn/hello-wordl" target="_blank" rel="noreferrer noopener">View the original source code on GitHub</a>
         </p>
       </div>}
       <Game

@@ -179,10 +179,6 @@ function Game(props: GameProps) {
       <div className="Game-options">
         <button
           className={"vr-button secondary"}
-          style={{
-            flex: "0 0 auto",
-            display: gameState === GameState.Playing ? "flex" : "none"
-          }}
           disabled={gameState !== GameState.Playing || guesses.length === 0}
           onClick={() => {
             if (gameState === GameState.Playing) {
@@ -211,6 +207,16 @@ function Game(props: GameProps) {
         >
           Give up
         </button>
+        <div>
+          <h4
+            className="Game-over-message"
+            style={{
+              display: gameState === GameState.Playing ? "none" : "block",
+            }}
+          >
+          Come back tomorrow for a new word!
+          </h4>
+        </div>
       </div>
     </div>
   );
