@@ -175,6 +175,7 @@ function Game(props: GameProps) {
         layout={props.keyboardLayout}
         letterInfo={letterInfo}
         onKey={onKey}
+        style={gameState === GameState.Playing ? "flex" : "none"}
       />
       <div className="Game-options">
         <button

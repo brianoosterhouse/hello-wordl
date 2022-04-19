@@ -4,6 +4,7 @@ interface KeyboardProps {
   layout: string;
   letterInfo: Map<string, Clue>;
   onKey: (key: string) => void;
+  style: string;
 }
 
 export function Keyboard(props: KeyboardProps) {
@@ -16,7 +17,7 @@ export function Keyboard(props: KeyboardProps) {
     );
 
   return (
-    <div className="Game-keyboard" aria-hidden="true">
+    <div className="Game-keyboard" aria-hidden="true" style={{display: props.style}}>
       {keyboard.map((row, i) => (
         <div key={i} className="Game-keyboard-row">
           {row.map((label, j) => {
