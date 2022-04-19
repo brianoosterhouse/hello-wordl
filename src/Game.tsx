@@ -46,7 +46,12 @@ function Game(props: GameProps) {
   const [guesses, setGuesses] = useState<string[]>([]);
   const [currentGuess, setCurrentGuess] = useState<string>("");
   const [target, setTarget] = useState(() => {
-    return Object.keys(targets)[currentDay()];
+    const currentTarget = Object.keys(targets)[currentDay()];
+    if (currentTarget !== '') {
+      return currentTarget;
+    } else { // use a random word
+      return Object.keys(targets)[Math.floor(Math.random() * Object.keys(targets).length)];
+    }
   });
   const [wordLength, setWordLength] = useState(
     Number(parseLength(target))
