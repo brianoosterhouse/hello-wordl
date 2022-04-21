@@ -1,5 +1,3 @@
-import dictionary from "./dictionary.json";
-
 export const gameName = "VRdle";
 export const maxGuesses = 6;
 

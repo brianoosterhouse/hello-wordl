@@ -4,13 +4,7 @@ import dictionary from "./dictionary.json";
 import { Clue, clue, describeClue } from "./clue";
 import { Keyboard } from "./Keyboard";
 import targets from "./targets.json";
-import {
-  currentDay,
-  gameName,
-  parseHtml,
-  speak,
-} from "./util";
-import { decode, encode } from "./base64";
+import { currentDay, parseHtml, speak } from "./util";
 
 enum GameState {
   Playing,
@@ -25,18 +19,6 @@ interface GameProps {
   keyboardLayout: string;
 }
 
-const now = new Date();
-const todaySeed =
-  now.toLocaleDateString("en-US", { year: "numeric" }) +
-  now.toLocaleDateString("en-US", { month: "2-digit" }) +
-  now.toLocaleDateString("en-US", { day: "2-digit" });
-
-const minLength = 3;
-const defaultLength = 5;
-const maxLength = 7;
-const limitLength = (n: number) =>
-  n >= minLength && n <= maxLength ? n : defaultLength;
-
 function parseLength(target: string) {
   return target.split('').length;
 }
@@ -45,7 +27,7 @@ function Game(props: GameProps) {
   const [gameState, setGameState] = useState(GameState.Playing);
   const [guesses, setGuesses] = useState<string[]>([]);
   const [currentGuess, setCurrentGuess] = useState<string>("");
-  const [target, setTarget] = useState(() => {
+  const [target] = useState(() => {
     const currentTarget = Object.keys(targets)[currentDay()];
     if (currentTarget !== '') {
       return currentTarget;
@@ -53,7 +35,7 @@ function Game(props: GameProps) {
       return Object.keys(targets)[Math.floor(Math.random() * Object.keys(targets).length)];
     }
   });
-  const [wordLength, setWordLength] = useState(
+  const [wordLength] = useState(
     Number(parseLength(target))
   );
   let targetDefinition = '';

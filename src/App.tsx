@@ -35,7 +35,7 @@ function App() {
     "keyboard",
     "qwertyuiop-asdfghjkl-BzxcvbnmE"
   );
-  const [enterLeft, setEnterLeft] = useSetting<boolean>("enter-left", false);
+  const [enterLeft] = useSetting<boolean>("enter-left", false);
 
   useEffect(() => {
     setTimeout(() => {
