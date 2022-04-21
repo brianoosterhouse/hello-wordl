@@ -184,6 +184,14 @@ a:visited {
   color: var(--primary);
 }
 
+p {
+  font-size: 18px;
+}
+
+h4 {
+  margin: 20px 0 40px 0;
+}
+
 .Game-options {
   display: flex;
   align-items: center;
@@ -193,7 +201,9 @@ a:visited {
   margin-top: 1rem;
 }
 
-.Game-options button, .vr-button {
+.Game-options button,
+.vr-button,
+a.vr-button {
   color: #FFFFFF;
   min-width: 4rem;
   border: none;

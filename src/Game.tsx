@@ -220,7 +220,7 @@ function Game(props: GameProps) {
               display: gameState === GameState.Playing ? "none" : "block",
             }}
           >
-          Come back tomorrow for a new word!
+          Check back tomorrow for a new word!
           </h4>
         </div>
       </div>
