@@ -239,7 +239,7 @@
   "cycling": "Thermal cycling is the process of subjecting a product to predetermined temperature changes of hot and cold extremes.",
   "graph": "The copy and paste command in <a href=\"https://vibrationresearch.com/products/obserview/\" target=\"_blank\" rel=\"noopener\">ObserVIEW</a> allows the user to move data between graphs and software applications. In doing so, the user can perform an easy comparison of data from a multitude of applications.",
   "power": "Often, noise can be felt or heard on the shaker head when the system is powered on.",
-  "impact": "A collision between masses.",
+  "impact": "The ObserVIEW <a href=\"https://vibrationresearch.com/obserview/modal-testing/\" target=\"_blank\" rel=\"noopener\">Modal Testing module</a> is compatible with a modal impact hammer for excitation. An impact hammer is a measurement tool that produces short-duration excitation upon impact with a structure. The ObserVR1000 records the impulse via the hammer’s force sensor and the structure’s output via the response accelerometers.",
   "mems": "Microelectromechanical structures (MEMS) are extremely small devices utilizing both electrical and mechanical properties.",
   "durable": "Durability is the measure of useful life. It is a special case of reliability.",
   "mission": "A mission profile is a time-phased description of the events and environments an item experiences from initiation to completion of a specified mission.",
@@ -278,7 +278,7 @@
   "system": "A composite of equipment, skills, and techniques capable of performing/supporting an operational role. ",
   "vibrate": "Vibration is mechanical oscillation or motion about a reference point of equilibrium.",
   "sweep": "Sweep range and sweep rate are two parameters that define a sine sweep test.",
-  "spall": "A flake or chip of metal removed from one of the races of a rolling-element bearing. It indicates that the bearing is nearing the end of its use.",
+  "spall": "A spall is a flake or chip of metal removed from one of the races of a rolling-element bearing. It indicates that the bearing is nearing the end of its use.",
   "alias": "Aliasing is a spectrum analysis problem that results from sampling data at too low a sampling frequency. It causes high-frequency signals to appear in a spectrum at low frequencies.",
   "analyze": "<a href=\"https://vibrationresearch.com/products/obserview/\" target=\"_blank\" rel=\"noopener\">ObserVIEW</a> is a vibration signal analysis software where engineers can view, analyze, and edit waveforms to suit the test framework.",
   "orbit": "The orbit is the path of a shaft centerline during rotation.",
@@ -363,5 +363,6 @@
   "utility": "The <a href=\"https://vibrationresearch.com/products/obserview/\" target=\"_blank\" rel=\"noopener\">ObserVIEW</a> IIR filtering utility can implement low-pass, high-pass, and bandpass filters.",
   "export": "Edit and export waveform data with <a href=\"https://vibrationresearch.com/products/obserview/\" target=\"_blank\" rel=\"noopener\">ObserVIEW</a>.",
   "trial": "A <a href=\"https://vibrationresearch.com/request-trial-key/\" target=\"_blank\" rel=\"noopener\">free trial key</a> of any software feature is available for customers with VR hardware.",
-  "spectra": "Plural of spectrum. A spectrum describes the resolution of an electrical signal for a given measurement. See frequency spectrum."
+  "spectra": "Plural of spectrum. A spectrum describes the resolution of an electrical signal for a given measurement. See frequency spectrum.",
+  "kinetic": "Kinetic energy is a form of energy that an object or a particle has by reason of its motion. A shock pulse is an event that transmits kinetic energy into a system in a relatively short interval compared with the system’s greatest natural period."
 }
