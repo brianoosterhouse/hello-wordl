@@ -43,9 +43,7 @@ function Game(props: GameProps) {
   const tableRef = useRef<HTMLTableElement>(null);
 
   const onKey = (key: string) => {
-    if (gameState !== GameState.Playing) {
-      return;
-    }
+    if (gameState !== GameState.Playing) return;
     if (guesses.length === props.maxGuesses) return;
     if (/^[a-z]$/i.test(key)) {
       setCurrentGuess((guess) =>
