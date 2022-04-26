@@ -164,6 +164,9 @@ function Game(props: GameProps) {
         onKey={onKey}
         style={gameState === GameState.Playing ? "flex" : "none"}
       />
+      <br />
+      <br />
+      <br />
       <div className="Game-options">
         <button
           className={"vr-button secondary"}
