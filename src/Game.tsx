@@ -139,6 +139,36 @@ function Game(props: GameProps) {
 
   return (
     <div className="Game" style={{ display: props.hidden ? "none" : "block" }}>
+      <button
+        className={"Game-forfeit"}
+        disabled={gameState !== GameState.Playing || guesses.length === 0}
+        onClick={() => {
+          if (gameState === GameState.Playing) {
+            Object.values(targets).forEach((definition, i) => {
+              if (Object.keys(targets)[i] === target) {
+                targetDefinition = definition;
+              }
+            });
+            if (targetDefinition === '') {
+              setHint(
+                parseHtml(
+                  `The answer was <span style="color: #F70000; font-weight: 600;">${target.toUpperCase()}</span>.`
+                )
+              );
+            } else {
+              setHint(
+                parseHtml(
+                  `The answer was <span style="color: #F70000; font-weight: 600;">${target.toUpperCase()}</span>. <p>${targetDefinition}</p>`
+                )
+              );
+            }
+            setGameState(GameState.Lost);
+            (document.activeElement as HTMLElement)?.blur();
+          }
+        }}
+      >
+        Give up
+      </button>
       <table
         className="Game-rows"
         tabIndex={0}
@@ -162,40 +192,7 @@ function Game(props: GameProps) {
         onKey={onKey}
         style={gameState === GameState.Playing ? "flex" : "none"}
       />
-      <br />
-      <br />
-      <br />
       <div className="Game-options">
-        <button
-          className={"vr-button secondary"}
-          disabled={gameState !== GameState.Playing || guesses.length === 0}
-          onClick={() => {
-            if (gameState === GameState.Playing) {
-              Object.values(targets).forEach((definition, i) => {
-                if (Object.keys(targets)[i] === target) {
-                  targetDefinition = definition;
-                }
-              });
-              if (targetDefinition === '') {
-                setHint(
-                  parseHtml(
-                    `The answer was <span style="color: #F70000; font-weight: 600;">${target.toUpperCase()}</span>.`
-                  )
-                );
-              } else {
-                setHint(
-                  parseHtml(
-                    `The answer was <span style="color: #F70000; font-weight: 600;">${target.toUpperCase()}</span>. <p>${targetDefinition}</p>`
-                  )
-                );
-              }
-              setGameState(GameState.Lost);
-              (document.activeElement as HTMLElement)?.blur();
-            }
-          }}
-        >
-          Give up
-        </button>
         <div>
           <h4
             className="Game-over-message"
