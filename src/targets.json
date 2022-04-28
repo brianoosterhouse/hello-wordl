@@ -289,5 +289,13 @@
   "export": "Edit and export waveform data with <a href=\"https://vibrationresearch.com/products/obserview/\" target=\"_blank\" rel=\"noopener\">ObserVIEW</a>.",
   "trial": "A <a href=\"https://vibrationresearch.com/request-trial-key/\" target=\"_blank\" rel=\"noopener\">free trial key</a> of any software feature is available for customers with VR hardware.",
   "stiff": "Stiffness is the extent to which an object resists deformation in response to an applied force. The complementary concept is flexibility or pliability: the more flexible an object is, the less stiff it is.",
-  "law": "A law is a universal principle that describes the fundamental nature of something, the universal properties and the relationships between things, or a description that purports to explain these principles and relationships."
+  "law": "A law is a universal principle that describes the fundamental nature of something, the universal properties and the relationships between things, or a description that purports to explain these principles and relationships.",
+  "load": "<a href=\"https://vru.vibrationresearch.com/lesson/multi-loop-with-phase-control/\" target=\"_blank\" rel=\"noopener\">Multi-loop phase</a> is ideal for oversized test items, as multiple shakers distribute the load throughout the structure. Shakers can be configured in several ways for a multi-loop phase test.",
+  "static": "The modulus of elasticity, E, (static) is the initial slope of the stress versus strain curve (where Hooke’s Law applies) before the elastic limit is reached. The typical values are 30,000,000 pounds/square inch for steel and about 10,000,000 for aluminum.",
+  "rotate": "Rotation is the circular movement of an object around an axis of rotation.",
+  "cross": "The cross-spectral density (CSD) compares one signal with another signal in time, such as the drive signal with an input signal.",
+  "single": "Single-axis vibration testing is the traditional method of vibration testing. A test engineer exposes a test item to a single-axis excitation and then rotates and re-mounts it to test the subsequent orthogonal axes.",
+  "manual": "Download the latest versions of the software manuals, Quick Start Guides, and product specific hardware manuals <a href=\"https://vibrationresearch.com/download-vibrationview-manuals/\" target=\"_blank\" rel=\"noopener\">here</a>.",
+  "gain": "Gain is a measure of the ability of a two-port circuit (often an amplifier) to increase the power or amplitude of a signal from the input to the output port.",
+  "scale": "A scale factor in math is the ratio between corresponding measurements of an object and a representation of that object."
 }
