@@ -27,6 +27,29 @@ function Game(props: GameProps) {
   const [gameState, setGameState] = useState(GameState.Playing);
   const [guesses, setGuesses] = useState<string[]>([]);
   const [currentGuess, setCurrentGuess] = useState<string>("");
+  async function share(copiedHint: string, text?: string) {
+    const url = window.location.href;
+    const body = url + (text ? "\n\n" + text : "");
+    if (
+      /android|iphone|ipad|ipod|webos/i.test(navigator.userAgent) &&
+      !/firefox/i.test(navigator.userAgent)
+    ) {
+      try {
+        await navigator.share({ text: body });
+        return;
+      } catch (e) {
+        console.warn("navigator.share failed:", e);
+      }
+    }
+    try {
+      await navigator.clipboard.writeText(body);
+      setHint(copiedHint);
+      return;
+    } catch (e) {
+      console.warn("navigator.clipboard.writeText failed:", e);
+    }
+    setHint(url);
+  }
   const [target] = useState(() => {
     const currentTarget = Object.keys(targets)[currentDay()];
     if (currentTarget !== '') {
@@ -204,6 +227,30 @@ function Game(props: GameProps) {
           </h4>
         </div>
       </div>
+      {gameState !== GameState.Playing && (
+          <button
+            className="vr-button red"
+            onClick={() => {
+              const emoji = props.colorBlind
+                ? ["⬛", "🟦", "🟧"]
+                : ["⬛", "🟨", "🟩"];
+              const score = gameState === GameState.Lost ? "X" : guesses.length;
+              share(
+                "Results copied to clipboard",
+                `VRdle ${score}/${props.maxGuesses}\n` +
+                  guesses
+                    .map((guess) =>
+                      clue(guess, target)
+                        .map((c) => emoji[c.clue ?? 0])
+                        .join("")
+                    )
+                    .join("\n")
+              );
+            }}
+          >
+            Share Results
+          </button>
+        )}
     </div>
   );
 }

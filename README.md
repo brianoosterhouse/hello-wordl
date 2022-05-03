@@ -14,6 +14,7 @@ A fork of [Lynn's](https://github.com/lynn/hello-wordl) Wordle clone, which uses
   - Added function currentDay() and using it to look up a unique word based on the day
   - Added functionality to allow for different word lengths on different days
   - Removed challenge mode, parameters, and difficulty settings
+  - Added 'Share Results' button
 
 # About hello wordl
 
