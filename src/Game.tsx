@@ -28,7 +28,7 @@ function Game(props: GameProps) {
   const [guesses, setGuesses] = useState<string[]>([]);
   const [currentGuess, setCurrentGuess] = useState<string>("");
   async function share(copiedHint: string, text?: string) {
-    const url = window.location.href;
+    const url = "https://vibrationresearch.com/vrdle/";
     const body = url + (text ? "\n\n" + text : "");
     if (
       /android|iphone|ipad|ipod|webos/i.test(navigator.userAgent) &&
