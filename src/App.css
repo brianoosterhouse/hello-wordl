@@ -198,7 +198,7 @@ h4 {
   justify-content: center;
 }
 
-.vr-button
+.vr-button, 
 a.vr-button {
   color: #FFFFFF;
   min-width: 4rem;
